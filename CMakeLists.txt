@@ -9,5 +9,5 @@ set(LIBRARY_OUTPUT_PATH ${BIN})
 set(EXECUTABLE_OUTPUT_PATH ${BIN})
 
 add_executable(main main.cpp)
-
+set_target_properties(main PROPERTIES LINKER_LANGUAGE CXX)
 target_include_directories(main PUBLIC include)

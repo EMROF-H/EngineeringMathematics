@@ -1,4 +1,5 @@
 #include <iostream>
+#include <windows.h>
 
 #include "Matrix.hpp"
 #include "Vector.hpp"
@@ -16,15 +17,15 @@ const size_t Dimension = 5;     // 数据维度
 using RawDataType = const Matrix<DataNumber, Dimension + 1>;
 RawDataType &getRawData() { // 原始样本数据
     static RawDataType RawData {
-        { 4,  3.4,  100,  3,  10, 1 },
-        { 6,  4.1,  210,  1,  8 , 1 },
-        { 8,  6.7,  600,  2,  16, 0 },
-        { 10, 8.5,  1600, 6,  11, 0 },
-        { 5,  4.8,  150,  13, 12, 0 },
-        { 18, 15.6, 120,  21, 20, 1 },
-        { 2,  3.4,  80,   1,  10, 1 },
-        { 12, 7.9,  600,  4,  11, 0 },
-        { 16, 12,   780,  8,  8 , 0 },
+        {0.8147, 0.9058, 0.1270, 0.9134, 0.6324, 1},
+        {0.0975, 0.2785, 0.5469, 0.9575, 0.9649, 1},
+        {0.1576, 0.9706, 0.9572, 0.4854, 0.8003, 1},
+        {0.1419, 0.4218, 0.9157, 0.7922, 0.9595, 1},
+        {0.6557, 0.0357, 0.8491, 0.9340, 0.6787, 1},
+        {0.7577, 0.7431, 0.3922, 0.6555, 0.1712, 0},
+        {0.7060, 0.0318, 0.2769, 0.0462, 0.0971, 1},
+        {0.8235, 0.6948, 0.3171, 0.9502, 0.0344, 0},
+        {0.4387, 0.3816, 0.7655, 0.7952, 0.1869, 0},
     };
     return RawData;
 }
@@ -38,9 +39,6 @@ inline std::string result(double possibility) {
 }
 
 int main() {
-    const Vector<Dimension> Sample10 { 9, 15,  800, 7,  16 };   // 待预测样本
-    const Vector<Dimension> Sample11 { 3, 4.2, 189, 11, 7  };   // 待预测样本
-
     const size_t FitTimes = 1000000;    // 拟合次数
     const double LearningRate = 0.1;    // 学习率
 
@@ -60,20 +58,10 @@ int main() {
 
     lr.fit<DataNumber>(getRawData(), FitTimes); // 使用原始样本数据进行拟合
 
-    auto possibility10 = lr.possibilityPositive(Sample10);  // 预测样本10
-    auto possibility11 = lr.possibilityPositive(Sample11);  // 预测样本11
-
     // 打印结果
     cout << "ResultWeight = " << "[" << (lr.getWeight() ^ T) << "]" << endl;  // 打印训练结果权重
     cout << endl;
-
-    cout << "Sample10 = " << "[" << (Sample10 ^ T) << "]" << endl;
-    cout << "Possibility = " << possibility10 << ", " << result(possibility10) << endl;
-    cout << endl;
-
-    cout << "Sample11 = " << "[" << (Sample11 ^ T) << "]" << endl;
-    cout << "Possibility = " << possibility11 << ", " << result(possibility11) << endl;
-    cout << endl;
+    MessageBox(nullptr, "Hello, World!", "Message", MB_OK);
 
     return 0;
 }

@@ -15,7 +15,11 @@ namespace Math {
 
     public:
         inline double possibilityPositive(const Vector<Dimension> &x) {
-            return 1 / (1 + std::exp((weight ^ T) * x));
+            return possibilityPositive(weight, x);
+        }
+
+        static inline double possibilityPositive(const Vector<Dimension> weight, const Vector<Dimension> &x, double intercept = 0) {
+            return 1 / (1 + std::exp((weight ^ T) * x) + intercept);
         }
 
     private:
